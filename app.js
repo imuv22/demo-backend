@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import mongoSanitize from 'express-mongo-sanitize';
 import { rateLimit } from 'express-rate-limit';
 import adminRoutes from './routes/admin.js';
+import facetecRoutes from './routes/facetec.js';
 import ApiError, { error } from './utils/ApiError.js';
 import { send } from './utils/ApiResponse.js';
 import { setRequestProperty } from './utils/setRequestProperty.js';
@@ -56,6 +57,9 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+
+app.use('/api/facetec', facetecRoutes);
+
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 app.use((req, res, next) => {

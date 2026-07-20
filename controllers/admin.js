@@ -4,17 +4,7 @@ import cloudinary from '../config/cloudinary.js';
 import User from '../models/User.js';
 import { fail } from '../utils/ApiError.js';
 import { send } from '../utils/ApiResponse.js';
-
-const formatUser = (user) => ({
-    id: user._id.toString(),
-    name: user.name,
-    email: user.email,
-    profilePicture: user.profilePicture?.url
-        ? {
-            url: user.profilePicture.url,
-        }
-        : null,
-});
+import { formatUser } from '../utils/formatUser.js';
 
 const uploadBufferToCloudinary = (file) =>
     new Promise((resolve, reject) => {
@@ -108,6 +98,17 @@ export const uploadProfilePicture = async (req, res) => {
                 profilePicture: {
                     url: uploadedImage.secure_url,
                     publicId: uploadedImage.public_id,
+                },
+                profilePictureVerification: {
+                    isVerified: false,
+                    verifiedAt: null,
+                    externalDatabaseRefID: '',
+                    profilePicturePublicId: '',
+                    matchLevel: null,
+                    imageProcessingStatusEnumInt: null,
+                    pendingExternalDatabaseRefID: '',
+                    pendingProfilePicturePublicId: '',
+                    pendingStartedAt: null,
                 },
             },
             { new: true, runValidators: true }

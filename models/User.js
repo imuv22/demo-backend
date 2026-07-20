@@ -32,6 +32,44 @@ const userSchema = new mongoose.Schema(
                 default: '',
             },
         },
+        profilePictureVerification: {
+            isVerified: {
+                type: Boolean,
+                default: false,
+            },
+            verifiedAt: {
+                type: Date,
+                default: null,
+            },
+            externalDatabaseRefID: {
+                type: String,
+                default: '',
+            },
+            profilePicturePublicId: {
+                type: String,
+                default: '',
+            },
+            matchLevel: {
+                type: Number,
+                default: null,
+            },
+            imageProcessingStatusEnumInt: {
+                type: Number,
+                default: null,
+            },
+            pendingExternalDatabaseRefID: {
+                type: String,
+                default: '',
+            },
+            pendingProfilePicturePublicId: {
+                type: String,
+                default: '',
+            },
+            pendingStartedAt: {
+                type: Date,
+                default: null,
+            },
+        },
     },
     { timestamps: true }
 );

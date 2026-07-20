@@ -20,7 +20,7 @@ class ApiError extends Error {
         }
 
         return new ApiError(
-            err?.statusCode || 500,
+            err?.statusCode || err?.status || 500,
             err?.message || 'Internal server error',
             err?.errors || []
         );

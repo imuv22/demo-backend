@@ -1,4 +1,5 @@
 const DEFAULT_REQUEST_TIMEOUT_MS = 120_000;
+const DEFAULT_PROFILE_PICTURE_MIN_MATCH_LEVEL = 5;
 
 const getPositiveInteger = (value, fallback) => {
     const parsedValue = Number(value);
@@ -8,6 +9,30 @@ const getPositiveInteger = (value, fallback) => {
     }
 
     return parsedValue;
+};
+
+const getIntegerInRange = (value, fallback, min, max) => {
+    const parsedValue = getPositiveInteger(value, fallback);
+
+    if (parsedValue < min || parsedValue > max) {
+        return fallback;
+    }
+
+    return parsedValue;
+};
+
+const getTestingApiBaseUrl = (testingApiEndpoint) => {
+    if (
+        typeof testingApiEndpoint !== 'string' ||
+        !/\/process-request\/?$/.test(testingApiEndpoint)
+    ) {
+        return '';
+    }
+
+    return testingApiEndpoint.replace(
+        /\/process-request\/?$/,
+        ''
+    );
 };
 
 export const getFaceTecConfig = () => {
@@ -22,6 +47,13 @@ export const getFaceTecConfig = () => {
     const requestTimeoutMs = getPositiveInteger(
         process.env.FACETEC_REQUEST_TIMEOUT_MS,
         DEFAULT_REQUEST_TIMEOUT_MS
+    );
+
+    const profilePictureMinMatchLevel = getIntegerInRange(
+        process.env.FACETEC_PROFILE_PICTURE_MIN_MATCH_LEVEL,
+        DEFAULT_PROFILE_PICTURE_MIN_MATCH_LEVEL,
+        1,
+        6
     );
 
     if (!['testing', 'production'].includes(mode)) {
@@ -52,6 +84,12 @@ export const getFaceTecConfig = () => {
                 )}`
             );
         }
+
+        if (!getTestingApiBaseUrl(testingApiEndpoint)) {
+            throw new Error(
+                'FACETEC_TESTING_API_ENDPOINT must end with "/process-request".'
+            );
+        }
     }
 
     if (mode === 'production') {
@@ -64,6 +102,9 @@ export const getFaceTecConfig = () => {
         mode,
         deviceKeyIdentifier,
         testingApiEndpoint,
+        testingApiBaseUrl:
+            getTestingApiBaseUrl(testingApiEndpoint),
+        profilePictureMinMatchLevel,
         requestTimeoutMs,
     });
 };

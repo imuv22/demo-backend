@@ -14,6 +14,8 @@ try {
         endpoint: config.testingApiEndpoint,
         deviceKeyConfigured:
             Boolean(config.deviceKeyIdentifier),
+        profilePictureMinMatchLevel:
+            config.profilePictureMinMatchLevel,
         timeoutMs: config.requestTimeoutMs,
     });
 } catch (error) {
