@@ -5,7 +5,6 @@ import morgan from 'morgan';
 import mongoSanitize from 'express-mongo-sanitize';
 import { rateLimit } from 'express-rate-limit';
 import adminRoutes from './routes/admin.js';
-import verificationRoutes from './routes/verification.js';
 import ApiError, { error } from './utils/ApiError.js';
 import { send } from './utils/ApiResponse.js';
 import { setRequestProperty } from './utils/setRequestProperty.js';
@@ -75,7 +74,6 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/admin', adminRoutes);
-app.use('/api/verification', verificationRoutes);
 
 app.use((req, res, next) => {
     return next(error(404, `Route not found: ${req.originalUrl}`));

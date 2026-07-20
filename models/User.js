@@ -22,6 +22,16 @@ const userSchema = new mongoose.Schema(
             required: true,
             select: false,
         },
+        profilePicture: {
+            url: {
+                type: String,
+                default: '',
+            },
+            publicId: {
+                type: String,
+                default: '',
+            },
+        },
     },
     { timestamps: true }
 );

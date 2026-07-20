@@ -6,10 +6,6 @@ if (!process.env.JWT_SECRET && process.env.NODE_ENV !== 'production') {
     process.env.JWT_SECRET = 'verifydesk-development-secret';
 }
 
-if (!process.env.DECENTRO_BASE_URL) {
-    process.env.DECENTRO_BASE_URL = 'https://in.staging.decentro.tech';
-}
-
 const firstClientUrl = process.env.CLIENT_URL
     ?.split(',')
     .map((origin) => origin.trim())
@@ -27,11 +23,9 @@ const requiredEnvVariables = [
     'PORT',
     'DB_URL',
     'JWT_SECRET',
-    'DECENTRO_CLIENT_ID',
-    'DECENTRO_CLIENT_SECRET',
-    'DECENTRO_MODULE_SECRET',
-    'FRONTEND_URL',
-    'BACKEND_URL',
+    'CLOUDINARY_CLOUD_NAME',
+    'CLOUDINARY_API_KEY',
+    'CLOUDINARY_API_SECRET',
 ];
 
 requiredEnvVariables.forEach((key) => {

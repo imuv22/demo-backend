@@ -13,6 +13,7 @@
   "type": "module",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "cloudinary": "^2.10.0",
     "cors": "^2.8.6",
     "cross-env": "^10.1.0",
     "dotenv-flow": "^4.1.0",
