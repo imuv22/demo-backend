@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server.js",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "check:facetec": "cross-env NODE_ENV=development node scripts/checkFaceTecConfig.js"
   },
   "keywords": [],
   "author": "",
